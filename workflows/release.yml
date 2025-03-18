@@ -62,7 +62,7 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-          token: ${{ secrets.THESIS_CI_TOKEN }}
+          token: ${{ secrets.TOUYING_CI_TOKEN }}
           persist-credentials: true
 
       - name: Configure triger user for git
@@ -88,10 +88,10 @@ jobs:
           sd 'version = ".*"' "version = \"$SEMVER\"" ./typst.toml
           git add ./typst.toml
 
-      - name: Bump template/thesis.typ
+      - name: Bump template/touying.typ
         run: |
-          sd '"@preview/modern-sysu-thesis:.*"' "\"@preview/modern-sysu-thesis:$SEMVER\"" ./template/thesis.typ
-          git add ./template/thesis.typ
+          sd '"@preview/modern-sysu-touying:.*"' "\"@preview/modern-sysu-touying:$SEMVER\"" ./template/touying.typ
+          git add ./template/touying.typ
 
       - name: Update & stage CHANGELOG.md
         run: |
@@ -150,24 +150,24 @@ jobs:
           persist-credentials: true
           path: sysu-fork
 
-      - name: Store MODERN_SYSU_THESIS
+      - name: Store MODERN_SYSU_TOUYING
         run: |
-          MODERN_SYSU_THESIS="$(pwd)/sysu-fork/packages/preview/modern-sysu-thesis"
-          echo "MODERN_SYSU_THESIS=$MODERN_SYSU_THESIS" >> $GITHUB_ENV
+          MODERN_SYSU_TOUYING="$(pwd)/sysu-fork/packages/preview/modern-sysu-touying"
+          echo "MODERN_SYSU_TOUYING=$MODERN_SYSU_TOUYING" >> $GITHUB_ENV
 
       - name: switch new branch for Packages
-        working-directory: ${{ env.MODERN_SYSU_THESIS }}
+        working-directory: ${{ env.MODERN_SYSU_TOUYING }}
         run: |
           git switch main
           git switch -c $SEMVER
 
       - name: create new version directory
-        working-directory: ${{ env.MODERN_SYSU_THESIS }}
+        working-directory: ${{ env.MODERN_SYSU_TOUYING }}
         run: |
           mkdir $SEMVER
 
       - name: Copy project files
-        working-directory: ${{ env.MODERN_SYSU_THESIS }}/${{ env.SEMVER }}
+        working-directory: ${{ env.MODERN_SYSU_TOUYING }}/${{ env.SEMVER }}
         run: |
           cp $CI_PROJECT_DIR/LICENSE .
           cp $CI_PROJECT_DIR/README.md .
@@ -182,21 +182,21 @@ jobs:
           cp -r $CI_PROJECT_DIR/template .
 
       - name: Switch to preview import
-        working-directory: ${{ env.MODERN_SYSU_THESIS }}/${{ env.SEMVER }}
+        working-directory: ${{ env.MODERN_SYSU_TOUYING }}/${{ env.SEMVER }}
         run: |
-          sd '// #import "@preview/modern-sysu-thesis:' '#import "@preview/modern-sysu-thesis:' ./template/thesis.typ
-          sd '#import "/lib.typ":' '// #import "lib.typ":' ./template/thesis.typ
+          sd '// #import "@preview/modern-sysu-touying:' '#import "@preview/modern-sysu-touying:' ./template/touying.typ
+          sd '#import "/lib.typ":' '// #import "lib.typ":' ./template/touying.typ
 
       - name: Configure triger user for git
-        working-directory: ${{ env.MODERN_SYSU_THESIS }}
+        working-directory: ${{ env.MODERN_SYSU_TOUYING }}
         run: |
           git config user.name "${{ github.actor }}"
           git config user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Commit to Packages
-        working-directory: ${{ env.MODERN_SYSU_THESIS }}
+        working-directory: ${{ env.MODERN_SYSU_TOUYING }}
         run: |
           git status
           git add .
-          git commit -m "chore(release):prepare for modern-sysu-thesis:$SEMVER"
+          git commit -m "chore(release):prepare for modern-sysu-touying:$SEMVER"
           git push --set-upstream origin $SEMVER
