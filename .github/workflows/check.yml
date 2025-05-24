@@ -62,5 +62,5 @@ jobs:
           typst compile
             --root=.
             --font-path=./fonts
-            ./template/thesis.typ
-            ./thesis_preview.pdf
+            ./template/touying.typ
+            ./touying_preview.pdf
