@@ -154,6 +154,7 @@ jobs:
         run: |
           MODERN_SYSU_TOUYING="$(pwd)/sysu-fork/packages/preview/modern-sysu-touying"
           echo "MODERN_SYSU_TOUYING=$MODERN_SYSU_TOUYING" >> $GITHUB_ENV
+          mkdir -p $MODERN_SYSU_TOUYING
 
       - name: switch new branch for Packages
         working-directory: ${{ env.MODERN_SYSU_TOUYING }}
@@ -175,10 +176,7 @@ jobs:
           cp $CI_PROJECT_DIR/thumbnail.png .
           cp $CI_PROJECT_DIR/lib.typ .
           cp -r $CI_PROJECT_DIR/assets .
-          cp -r $CI_PROJECT_DIR/layouts .
           cp -r $CI_PROJECT_DIR/utils .
-          cp -r $CI_PROJECT_DIR/pages .
-          cp -r $CI_PROJECT_DIR/specifications .
           cp -r $CI_PROJECT_DIR/template .
 
       - name: Switch to preview import
