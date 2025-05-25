@@ -154,6 +154,7 @@ jobs:
         run: |
           MODERN_SYSU_TOUYING="$(pwd)/sysu-fork/packages/preview/modern-sysu-touying"
           echo "MODERN_SYSU_TOUYING=$MODERN_SYSU_TOUYING" >> $GITHUB_ENV
+          mkdir -p $MODERN_SYSU_TOUYING
 
       - name: switch new branch for Packages
         working-directory: ${{ env.MODERN_SYSU_TOUYING }}
