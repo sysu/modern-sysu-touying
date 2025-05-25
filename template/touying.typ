@@ -20,7 +20,7 @@
     subtitle: [Customize Your Slide Subtitle Here],
     author: [Authors],
     date: datetime.today(),
-    institution: [Beihang University],
+    institution: [Sun Yat-sen University],
   ),
 )
 
