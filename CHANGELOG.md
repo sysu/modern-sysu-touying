@@ -34,5 +34,3 @@ All notable changes to this project will be documented in this file.
 - *(github)* 流水线配置文件迁移到 .github 文件夹下
 - 将论文相关变量替代为投影
 - 从论文模板拷贝流水线
-
-# CHANGELOG
